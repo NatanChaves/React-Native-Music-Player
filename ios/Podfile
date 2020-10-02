@@ -8,6 +8,14 @@ target 'MusicPlayer' do
 
   use_react_native!(:path => config["reactNativePath"])
 
+  pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
+
+  pod 'OGReactNativeWaveform', :path => '../node_modules/react-native-audiowaveform'
+
+  pod 'RNSiriWaveView', :path => '../node_modules/react-native-siri-wave-view'
+
+  pod 'BVLinearGradient', :path => '../node_modules/react-native-linear-gradient'
+
   target 'MusicPlayerTests' do
     inherit! :complete
     # Pods for testing

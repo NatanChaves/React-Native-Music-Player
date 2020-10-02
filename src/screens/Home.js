@@ -1,62 +1,92 @@
-import React, {useEffect, useState} from 'react';
-import {Text, Button} from 'react-native';
-//import the TrackPlayer  
-import TrackPlayer from 'react-native-track-player';
+import React from 'react';
+import { View, Text, StyleSheet, FlatList } from 'react-native';
+import {Header} from "react-native-elements";
 
-//function to initialize the Track Player 
-const trackPlayerInit = async () => {
- await TrackPlayer.setupPlayer();
- await TrackPlayer.add({
-   id: '1',
-   url:
-     'https://audio-previews.elements.envatousercontent.com/files/103682271/preview.mp3',
-   type: 'default',
-   title: 'My Title',
-   album: 'My Album',
-   artist: 'Rohan Bhatia',
-   artwork: 'https://picsum.photos/100',
- });
- return true;
-};
- 
 const Home = () => {
- 
- //state to manage whether track player is initialized or not
- const [isTrackPlayerInit, setIsTrackPlayerInit] = useState(false);
- const [isPlaying, setIsPlaying] = useState(false);
 
- 
- //initialize the TrackPlayer when the App component is mounted
- useEffect(() => {
-   const startPlayer = async () => {
-      let isInit =  await trackPlayerInit();
-      setIsTrackPlayerInit(isInit);
-   }
-   startPlayer();
- }, []);
+    const playlist = [
+        {
+            id: '1',
+            url:
+                'https://audio-previews.elements.envatousercontent.com/files/103682271/preview.mp3',
+            type: 'default',
+            title: 'My Title',
+            album: 'My Album',
+            artist: 'Rohan Bhatia',
+            artwork: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/24/Eric_Clapton_01May2015.jpg/240px-Eric_Clapton_01May2015.jpg',
+        },
+        {
+            id: '2',
+            url:
+                'https://audio-previews.elements.envatousercontent.com/files/103682271/preview.mp3',
+            type: 'default',
+            title: 'My Title',
+            album: 'My Album',
+            artist: 'Rohan Bhatia',
+            artwork: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/24/Eric_Clapton_01May2015.jpg/240px-Eric_Clapton_01May2015.jpg',
+        },
+        {
+            id: '3',
+            url:
+                'https://audio-previews.elements.envatousercontent.com/files/103682271/preview.mp3',
+            type: 'default',
+            title: 'My Title',
+            album: 'My Album',
+            artist: 'Rohan Bhatia',
+            artwork: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/24/Eric_Clapton_01May2015.jpg/240px-Eric_Clapton_01May2015.jpg',
+        },
+        {
+            id: '4',
+            url:
+                'https://audio-previews.elements.envatousercontent.com/files/103682271/preview.mp3',
+            type: 'default',
+            title: 'My Title',
+            album: 'My Album',
+            artist: 'Rohan Bhatia',
+            artwork: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/24/Eric_Clapton_01May2015.jpg/240px-Eric_Clapton_01May2015.jpg',
+        },
 
-//start playing the TrackPlayer when the button is pressed 
-const onButtonPressed = () => {
-  if (!isPlaying) {
-    TrackPlayer.play();
-    setIsPlaying(true);
-  } else {
-    TrackPlayer.pause();
-    setIsPlaying(false);
-  }
+    ]
+    return (
+        <>
+         <Header
+        containerStyle={{ backgroundColor: '#0b2242' }}
+        centerComponent={{ text: 'Music Player by Natan', style: { color: '#fff' } }}
+      />
+            <View style={{ flex: 1, flexDirection: "row", justifyContent: "flex-end", alignItems: "center", backgroundColor: '#0b2242' }}>
+                <FlatList
+                    data={playlist}
+                    keyExtractor={(item, index) => {
+                        return index.toString();
+                    }}
+                    renderItem={({ item }) => {
+                        return (
+                            <>
+                                <View style={{ flex: 1, flexDirection: "row" }} >
+                                    <View style={{ flex: 1 }}>
+                                        <Text style={style.listText}> {item.id}</Text>
+                                    </View>
+                                    <View style={{ flex: 1}}>
+                                        <Text style={style.listText}>{item.artist} </Text>
+                                    </View>
+                                    <View style={{ flex: 1 }}>
+                                        <Text style={style.listText}>{item.album}</Text>
+                                    </View>
+                                </View>
+
+                            </>
+                        )
+                    }} />
+            </View>
+        </>
+    )
 }
- 
- 
- return (
-   <>
-     <Text>Music Player</Text>
-     <Button
-       title="Play"
-       onPress={onButtonPressed}
-       disabled={!isTrackPlayerInit}
-     />
-   </>
- );
-};
- 
+
+const style = StyleSheet.create({
+    listText: {
+        color: '#0b2242',
+        marginTop: 5,
+        backgroundColor: "#fff"
+    }
+})
 export default Home;
